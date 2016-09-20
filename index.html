@@ -1,0 +1,70 @@
+<head>
+
+	<script type="text/javascript" src="lib/js/sml/midi.js"></script>
+	<script type="text/javascript" src="lib/js/sml/midiinfo.js"></script>
+	<script type="text/javascript" src="lib/js/sml/midistream.js"></script>
+	<script type="text/javascript" src="lib/js/sml/midifile.js"></script>
+	<script type="text/javascript" src="lib/js/sml/miditrack.js"></script>
+
+
+	<script>
+
+	//
+	// The most basic example: playing a series of notes
+	// The library will auto-increment the playback pointer after
+	// each note.
+	//
+	function generateScale() {
+	var mf = new SML.Midi();
+	var track = mf.createTrack();
+	var scale = [60,62,64,65,67,69,71,72];
+
+		track.addTempo(120);
+		for(var i=0;i<scale.length;++i) {
+			track.addNoteOn(0, scale[i], 100, SML.MidiNote.crochet);	
+		}
+
+		SML.MidiFile.save(mf, "example.mid");
+	}
+
+
+	//
+	// By excluding a duration parameter when adding a note, you can
+	// play many notes at the same time. Remember, however, to increment
+	// the playback pointer (with addRest) *AND* turn the note off at the
+	// end.
+	//
+	function generateChords() {
+		var mf = new SML.Midi();
+		var track = mf.createTrack();
+		var playChord = function(root, off1, off2) {
+
+			track.addNoteOn(0, root, 100);
+			track.addNoteOn(0, root+off1, 100);
+			track.addNoteOn(0, root+off2, 100);
+
+			track.addRest(SML.MidiNote.minim);
+
+			track.addNoteOff(0, root, 100);
+			track.addNoteOff(0, root+off1, 100);
+			track.addNoteOff(0, root+off2, 100);
+		};
+		
+		playChord(60, 4, 7);
+		playChord(65, 4, 7);
+		playChord(67, 4, 7);
+		playChord(60, 4, 7);
+
+		SML.MidiFile.save(mf, "chords.mid");
+	}
+
+	</script>
+</head>
+
+<body>
+
+	<a href="#" onclick="generateScale(); return false;">Generate Scale into MIDI file</a>
+
+	<a href="#" onclick="generateChords(); return false;">Generate Chords</a>
+
+</body>
