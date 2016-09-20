@@ -16,7 +16,7 @@ It is a port of https://github.com/MarquisdeGeek/midilib
 
 # Examples
 
-The most basic is
+The most basic example is
 
 ```
 var mf = new SML.Midi();
