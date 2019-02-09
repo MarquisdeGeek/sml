@@ -4,7 +4,7 @@ Steev's Javascript MIDI Library
 Steven Goodwin (StevenGoodwin@gmail.com)
 Copyright 1998-2016, Steven Goodwin
 
-Released under the GPL 2
+Released under the GPL 3
 
 
 # About
